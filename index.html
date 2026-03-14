@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why You Destroy Everything You Love — Gather Soul</title>
+<meta name="description" content="A 21-day guided journey to understand why you push love away — and finally feel safe enough to let it stay.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F0E8;
+    --cream-deep: #EDE4D8;
+    --green: #2D4A35;
+    --green-light: #4A6741;
+    --green-pale: #E8EDE6;
+    --rose: #C4A398;
+    --rose-deep: #9E7A72;
+    --gold: #C8922A;
+    --near-black: #1C1C1A;
+    --text: #2A2520;
+    --text-muted: #7A7068;
+    --white: #FDFAF6;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+  .reveal-delay-4 { transition-delay: 0.6s; }
+
+  /* ══════════════════════════════════════════
+     NAVIGATION
+  ══════════════════════════════════════════ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.5s ease;
+  }
+  nav.scrolled {
+    background: rgba(247, 240, 232, 0.92);
+    backdrop-filter: blur(20px);
+    padding: 16px 48px;
+    border-bottom: 1px solid rgba(45, 74, 53, 0.1);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--green);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .nav-cta {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--green);
+    padding: 12px 28px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid var(--green);
+  }
+  .nav-cta:hover {
+    background: transparent;
+    color: var(--green);
+  }
+
+  /* ══════════════════════════════════════════
+     HERO
+  ══════════════════════════════════════════ */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 120px 24px 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(45,74,53,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 20% 80%, rgba(196,163,152,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 80% 20%, rgba(200,146,42,0.06) 0%, transparent 60%);
+    animation: breathe 8s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.02); }
+  }
+
+  /* Floating orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: float 12s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .orb-1 {
+    width: 400px; height: 400px;
+    background: rgba(45,74,53,0.08);
+    top: -100px; left: -100px;
+    animation-delay: 0s;
+  }
+  .orb-2 {
+    width: 300px; height: 300px;
+    background: rgba(196,163,152,0.12);
+    bottom: -50px; right: -50px;
+    animation-delay: -4s;
+  }
+  .orb-3 {
+    width: 200px; height: 200px;
+    background: rgba(200,146,42,0.06);
+    top: 30%; right: 10%;
+    animation-delay: -8s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    33% { transform: translateY(-30px) translateX(20px); }
+    66% { transform: translateY(20px) translateX(-15px); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.3s;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 9vw, 110px);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: var(--near-black);
+    margin-bottom: 36px;
+    max-width: 900px;
+    opacity: 0;
+    animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.5s;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--green);
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 36px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.8s;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1s;
+  }
+
+  .hero-cta-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.2s;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--green);
+    padding: 20px 56px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    border: 1px solid var(--green);
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .hero-price-note {
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.8s;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--green), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+  .scroll-text {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ══════════════════════════════════════════
+     PAIN SECTION
+  ══════════════════════════════════════════ */
+  .pain {
+    background: var(--near-black);
+    padding: 140px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .pain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(45,74,53,0.2) 0%, transparent 70%);
+  }
+  .pain-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+  }
+  .pain-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 48px;
+  }
+  .pain-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 64px;
+  }
+  .pain-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .pain-item {
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    text-align: left;
+    transition: all 0.3s ease;
+  }
+  .pain-item:hover { padding-left: 12px; }
+  .pain-arrow {
+    color: var(--gold);
+    font-size: 18px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+  .pain-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 2.2vw, 22px);
+    font-weight: 300;
+    color: rgba(253,250,246,0.8);
+    line-height: 1.5;
+  }
+  .pain-close {
+    margin-top: 72px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-style: italic;
+    color: var(--rose);
+    line-height: 1.6;
+  }
+
+  /* ══════════════════════════════════════════
+     BRIDGE SECTION
+  ══════════════════════════════════════════ */
+  .bridge {
+    padding: 160px 24px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .bridge::after {
+    content: '"';
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 600px;
+    color: rgba(45,74,53,0.04);
+    top: -100px;
+    left: -60px;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .bridge-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+  }
+  .bridge-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4.5vw, 52px);
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--near-black);
+    margin-bottom: 48px;
+  }
+  .bridge-quote strong {
+    font-weight: 500;
+    color: var(--green);
+  }
+  .bridge-body {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--text-muted);
+    max-width: 540px;
+    margin: 0 auto 48px;
+  }
+  .bridge-line {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    margin: 0 auto;
+  }
+
+  /* ══════════════════════════════════════════
+     PRODUCT REVEAL
+  ══════════════════════════════════════════ */
+  .product-reveal {
+    padding: 80px 24px 160px;
+    background: var(--cream);
+  }
+  .product-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .product-book {
+    position: relative;
+  }
+  .book-cover {
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 7/10;
+    background: var(--cream-deep);
+    position: relative;
+    box-shadow:
+      20px 20px 60px rgba(45,74,53,0.12),
+      -4px -4px 20px rgba(255,255,255,0.8),
+      0 0 0 1px rgba(45,74,53,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 40px;
+    transform: rotate(-2deg);
+    transition: transform 0.5s ease;
+    overflow: hidden;
+  }
+  .book-cover:hover { transform: rotate(0deg) translateY(-8px); }
+  .book-cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(45,74,53,0.05) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 30% 80%, rgba(196,163,152,0.1) 0%, transparent 60%);
+  }
+  .book-wave {
+    position: absolute;
+    inset: 0;
+    opacity: 0.3;
+  }
+  .book-title-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.1;
+    letter-spacing: 0.05em;
+    color: var(--near-black);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 12px;
+  }
+  .book-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--near-black);
+    margin: 0 auto 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .book-subtitle-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-style: italic;
+    text-align: center;
+    color: var(--text-muted);
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 32px;
+  }
+  .book-heart {
+    width: 52px; height: 52px;
+    position: relative;
+    z-index: 1;
+    margin: 0 auto 22px;
+    animation: heartbeat 3s ease-in-out infinite;
+    display: block;
+  }
+  .book-heart svg { width: 100%; height: 100%; }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.07); }
+  }
+  .book-brand {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--green);
+    position: relative;
+    z-index: 1;
+  }
+  .book-glow {
+    position: absolute;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(200,146,42,0.15) 0%, transparent 70%);
+    bottom: -40px; right: -40px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .product-info { }
+  .product-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    border: 1px solid rgba(74, 103, 65, 0.3);
+    padding: 7px 16px;
+    margin-bottom: 32px;
+  }
+  .product-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--near-black);
+    margin-bottom: 28px;
+  }
+  .product-heading em { font-style: italic; color: var(--green); }
+  .product-desc {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+  }
+  .product-includes {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 44px;
+  }
+  .include-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .include-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .include-text {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .include-text strong { font-weight: 500; color: var(--near-black); }
+
+  /* ══════════════════════════════════════════
+     CHAPTERS SECTION
+  ══════════════════════════════════════════ */
+  .chapters {
+    background: var(--green);
+    padding: 160px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .chapters::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 80% 20%, rgba(200,146,42,0.1) 0%, transparent 60%);
+  }
+  .chapters-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .chapters-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .chapters-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(253,250,246,0.5);
+    margin-bottom: 24px;
+  }
+  .chapters-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.3;
+  }
+  .chapters-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .chapter-item {
+    padding: 32px 40px;
+    background: rgba(253,250,246,0.04);
+    border: 1px solid rgba(253,250,246,0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .chapter-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(253,250,246,0.04);
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .chapter-item:hover::before { transform: translateX(0); }
+  .chapter-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .chapter-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 2vw, 20px);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(253,250,246,0.9);
+    line-height: 1.4;
+    position: relative;
+  }
+
+  /* ══════════════════════════════════════════
+     21 DAYS SECTION
+  ══════════════════════════════════════════ */
+  .journey {
+    padding: 160px 24px;
+    background: var(--cream-deep);
+    position: relative;
+  }
+  .journey-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .journey-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .journey-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 24px;
+  }
+  .journey-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 300;
+    color: var(--near-black);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .journey-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 64px;
+  }
+  .day-card {
+    background: var(--white);
+    padding: 32px 24px;
+    border: 1px solid rgba(45,74,53,0.08);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+  .day-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--green);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+  .day-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(45,74,53,0.1); }
+  .day-card:hover::after { transform: scaleX(1); }
+  .day-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .day-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .day-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.4;
+  }
+  .journey-note {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--green);
+    padding: 40px;
+    border: 1px solid rgba(45,74,53,0.15);
+    background: rgba(45,74,53,0.03);
+  }
+
+  /* ══════════════════════════════════════════
+     BONUSES SECTION
+  ══════════════════════════════════════════ */
+  .bonuses {
+    padding: 160px 24px;
+    background: var(--near-black);
+    position: relative;
+    overflow: hidden;
+  }
+  .bonuses::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 40% at 20% 30%, rgba(196,163,152,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 80% 70%, rgba(45,74,53,0.15) 0%, transparent 60%);
+  }
+  .bonuses-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+  }
+  .bonuses-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .bonuses-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4.5vw, 52px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 72px;
+  }
+  .bonus-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 64px;
+  }
+  .bonus-card {
+    padding: 52px 40px;
+    border: 1px solid rgba(253,250,246,0.1);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    background: rgba(253,250,246,0.02);
+    transition: all 0.4s ease;
+  }
+  .bonus-card:hover {
+    background: rgba(253,250,246,0.05);
+    border-color: rgba(200,146,42,0.3);
+  }
+  .bonus-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    color: rgba(200,146,42,0.15);
+    position: absolute;
+    top: 16px; right: 24px;
+    line-height: 1;
+  }
+  .bonus-tag {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .bonus-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .bonus-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(253,250,246,0.6);
+    line-height: 1.8;
+  }
+  .bonuses-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: rgba(253,250,246,0.5);
+    line-height: 1.7;
+  }
+  .bonuses-value strong { color: var(--gold); font-style: normal; font-weight: 400; }
+
+  /* ══════════════════════════════════════════
+     PRICE / CTA SECTION
+  ══════════════════════════════════════════ */
+  .pricing {
+    padding: 160px 24px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .pricing-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .pricing-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 40px;
+  }
+  .pricing-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--near-black);
+    margin-bottom: 48px;
+  }
+  .pricing-title em { font-style: italic; color: var(--green); }
+
+  .price-compare {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 56px;
+    padding: 48px;
+    background: var(--cream-deep);
+    border: 1px solid rgba(45,74,53,0.1);
+  }
+  .price-item {
+    text-align: center;
+  }
+  .price-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .price-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--near-black);
+    line-height: 1;
+  }
+  .price-amount.crossed {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    font-size: 32px;
+    opacity: 0.5;
+  }
+  .price-amount.main { color: var(--green); font-size: 64px; }
+  .price-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .price-vs {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .pricing-includes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 52px;
+    text-align: left;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pricing-include {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text);
+  }
+  .pricing-check {
+    color: var(--green);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .btn-final {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--green);
+    padding: 24px 72px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    margin-bottom: 24px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    border: 1px solid var(--green);
+  }
+  .btn-final::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--near-black);
+    transform: translateY(101%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-final:hover::before { transform: translateY(0); }
+  .btn-final span { position: relative; z-index: 1; }
+
+  .pricing-note {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+  }
+
+  /* ══════════════════════════════════════════
+     FINAL QUOTE
+  ══════════════════════════════════════════ */
+  .final-quote {
+    padding: 160px 24px;
+    background: var(--green);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-quote::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(200,146,42,0.1) 0%, transparent 70%);
+  }
+  .final-quote-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    color: rgba(253,250,246,0.1);
+    line-height: 0.6;
+    margin-bottom: 24px;
+    display: block;
+  }
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 3.5vw, 40px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.5;
+    margin-bottom: 40px;
+  }
+  .quote-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 24px;
+  }
+  .quote-attr {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(253,250,246,0.5);
+    margin-bottom: 72px;
+  }
+  .quote-final-cta {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: var(--white);
+    padding: 20px 56px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid var(--white);
+  }
+  .quote-final-cta:hover {
+    background: transparent;
+    color: var(--white);
+  }
+
+  /* ══════════════════════════════════════════
+     FOOTER
+  ══════════════════════════════════════════ */
+  footer {
+    background: var(--near-black);
+    padding: 48px 24px;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(253,250,246,0.5);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .footer-note {
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: rgba(253,250,246,0.3);
+    line-height: 1.8;
+  }
+  .footer-note a {
+    color: rgba(253,250,246,0.5);
+    text-decoration: none;
+  }
+
+  /* ══════════════════════════════════════════
+     MOBILE — COMPREHENSIVE
+  ══════════════════════════════════════════ */
+
+  /* ── Viewport meta safety ── */
+  * { -webkit-tap-highlight-color: transparent; }
+  a, button { touch-action: manipulation; }
+
+  /* ── Mobile sticky CTA ── */
+  .mobile-cta-bar {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    z-index: 700;
+    background: rgba(247,240,232,0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 10px 16px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    border-top: 1px solid rgba(45,74,53,0.12);
+    box-shadow: 0 -4px 24px rgba(45,74,53,0.08);
+    align-items: center; gap: 12px;
+    transform: translateY(110%);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .mobile-cta-bar.visible { transform: translateY(0); }
+  .mcta-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 300; color: var(--green); line-height: 1; flex-shrink: 0;
+  }
+  .mcta-sub { font-size: 9px; font-weight: 300; color: var(--text-muted); letter-spacing: 0.06em; flex: 1; line-height: 1.5; }
+  .mcta-btn {
+    font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--white); background: var(--green);
+    padding: 13px 22px; text-decoration: none;
+    border: 1px solid var(--green); flex-shrink: 0;
+    transition: opacity 0.2s;
+  }
+  .mcta-btn:active { opacity: 0.8; }
+
+  @media (max-width: 768px) {
+    /* Show mobile bar */
+    .mobile-cta-bar { display: flex; }
+
+    /* Nav */
+    nav { padding: 16px 20px; height: 60px; }
+    nav.scrolled { padding: 12px 20px; }
+    .nav-logo { font-size: 15px; letter-spacing: 0.18em; }
+    .nav-cta { display: none; }
+
+    /* Hero — feels spacious on mobile */
+    .hero {
+      min-height: 100svh;
+      padding: 90px 22px 88px;
+      justify-content: center;
+    }
+    .hero-eyebrow { font-size: 9px; letter-spacing: 0.35em; margin-bottom: 28px; }
+    .hero-title {
+      font-size: clamp(44px, 12vw, 68px);
+      line-height: 0.9; margin-bottom: 24px;
+    }
+    .hero-divider { margin: 0 auto 24px; }
+    .hero-subtitle { font-size: 16px; margin-bottom: 40px; max-width: 100%; }
+    .hero-cta-wrap { max-width: 100%; }
+    .btn-primary { font-size: 11px; padding: 18px 28px; letter-spacing: 0.18em; }
+    .hero-price-note { font-size: 10px; }
+    .hero-scroll { display: none; }
+    .orb-1 { width: 260px; height: 260px; top: -80px; left: -80px; }
+    .orb-2 { width: 180px; height: 180px; bottom: -40px; right: -40px; }
+    .orb-3 { display: none; }
+
+    /* Pain */
+    .pain { padding: 80px 22px; }
+    .pain-title { font-size: clamp(26px, 7vw, 38px); margin-bottom: 40px; }
+    .pain-item { padding: 18px 0; gap: 16px; }
+    .pain-text { font-size: 16px; }
+    .pain-close { font-size: clamp(18px, 5vw, 24px); margin-top: 44px; }
+
+    /* Bridge */
+    .bridge { padding: 80px 22px; }
+    .bridge::after { font-size: 180px; top: -30px; left: -20px; }
+    .bridge-quote { font-size: clamp(22px, 6vw, 30px); margin-bottom: 32px; }
+    .bridge-body { font-size: 14px; }
+    .bridge-line { height: 56px; }
+
+    /* Product */
+    .product-reveal { padding: 60px 22px 80px; }
+    .product-inner { grid-template-columns: 1fr; gap: 40px; }
+    .product-book { order: 1; }
+    .product-info { order: 2; }
+    .book-cover {
+      max-width: 220px; margin: 0 auto;
+      padding: 32px 28px; transform: rotate(-1deg);
+    }
+    .book-title-text { font-size: 20px; }
+    .book-subtitle-text { font-size: 9px; }
+    .book-heart { width: 40px; height: 40px; margin-bottom: 16px; }
+    .product-tag { font-size: 9px; padding: 5px 12px; margin-bottom: 20px; }
+    .product-heading { font-size: clamp(24px, 7vw, 32px); margin-bottom: 16px; }
+    .product-desc { font-size: 13px; margin-bottom: 24px; }
+    .product-includes { gap: 10px; margin-bottom: 28px; }
+    .include-text { font-size: 13px; }
+
+    /* Chapters */
+    .chapters { padding: 80px 22px; }
+    .chapters-title { font-size: clamp(24px, 6.5vw, 34px); }
+    .chapters-grid { grid-template-columns: 1fr; gap: 1px; }
+    .chapter-item { padding: 20px 22px; }
+    .chapter-item[style*="span 2"] { grid-column: span 1 !important; }
+    .chapter-name { font-size: clamp(14px, 4vw, 17px); }
+
+    /* Journey */
+    .journey { padding: 80px 22px; }
+    .journey-title { font-size: clamp(28px, 7.5vw, 40px); }
+    .journey-subtitle { font-size: 17px; }
+    .days-grid { grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 36px; }
+    .day-card { padding: 24px 16px; }
+    .day-icon { font-size: 22px; margin-bottom: 10px; }
+    .day-title { font-size: 13px; }
+    .journey-note { font-size: 16px; padding: 28px 20px; }
+
+    /* Bonuses */
+    .bonuses { padding: 80px 22px; }
+    .bonuses-title { font-size: clamp(26px, 6.5vw, 38px); margin-bottom: 44px; }
+    .bonus-cards { grid-template-columns: 1fr; gap: 10px; margin-bottom: 40px; }
+    .bonus-card { padding: 36px 28px; }
+    .bonus-title { font-size: 21px; }
+    .bonus-desc { font-size: 13px; }
+    .bonuses-value { font-size: 17px; }
+
+    /* Pricing */
+    .pricing { padding: 80px 22px; }
+    .pricing-title { font-size: clamp(28px, 7.5vw, 40px); margin-bottom: 32px; }
+    .price-compare {
+      flex-direction: column; gap: 0;
+      padding: 28px 20px;
+    }
+    .price-item { padding: 16px 0; }
+    .price-item + .price-item { border-top: 1px solid rgba(45,74,53,0.1); }
+    .price-vs { display: none; }
+    .price-amount.main { font-size: 56px; }
+    .price-amount.crossed { font-size: 26px; }
+    .pricing-includes { max-width: 100%; gap: 10px; margin-bottom: 32px; }
+    .btn-final { font-size: 11px; padding: 20px; letter-spacing: 0.2em; }
+    .pricing-note { font-size: 11px; }
+
+    /* Final quote */
+    .final-quote { padding: 80px 22px 96px; }
+    .quote-text { font-size: clamp(20px, 5.5vw, 28px); }
+    .quote-mark { font-size: 90px; }
+    .quote-final-cta { display: block; text-align: center; padding: 16px 24px; font-size: 11px; }
+    .quote-attr { margin-bottom: 48px; }
+
+    /* Footer */
+    footer { padding: 44px 22px max(44px, calc(env(safe-area-inset-bottom) + 80px)); }
+    .footer-logo { font-size: 17px; }
+    .footer-note { font-size: 10px; }
+    .footer-expand-btn { font-size: 9px; }
+    .expand-content { padding: 18px 16px; }
+    .expand-content h4 { font-size: 12px; }
+    .expand-content p { font-size: 10px; }
+  }
+
+  /* ── Small phones ── */
+  @media (max-width: 400px) {
+    .hero-title { font-size: clamp(40px, 13vw, 52px); }
+    .hero { padding: 80px 18px 88px; }
+    .pain, .bridge, .product-reveal, .chapters, .journey, .bonuses, .pricing, .final-quote { padding-left: 18px; padding-right: 18px; }
+    .book-cover { max-width: 190px; }
+    .days-grid { gap: 8px; }
+    .day-card { padding: 20px 12px; }
+    .bridge::after { display: none; }
+  }
+
+  /* ── Landscape phones ── */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .hero { min-height: auto; padding: 80px 22px 60px; }
+    .hero-title { font-size: clamp(36px, 7vw, 52px); }
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .orb, .hero-bg, .book-heart, .scroll-line { animation: none; }
+    .reveal { transition: opacity 0.3s ease; transform: none; }
+    .reveal.visible { opacity: 1; }
+  }
+  /* ══════════════════════════════════════════
+     FOOTER EXPANDABLES
+  ══════════════════════════════════════════ */
+  .footer-divider {
+    width: 40px; height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 20px auto 0;
+  }
+  .footer-expand-row {
+    margin-top: 8px;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .footer-expand-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 300;
+    letter-spacing: 0.26em; text-transform: uppercase;
+    color: rgba(253,250,246,0.2);
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; padding: 10px 16px; margin: 0 auto;
+    transition: color 0.3s ease; line-height: 1;
+  }
+  .footer-expand-btn:hover { color: rgba(253,250,246,0.42); }
+  .footer-expand-btn:active { color: rgba(253,250,246,0.6); }
+  .fea { font-size: 9px; display: inline-block; transition: transform 0.38s cubic-bezier(0.16,1,0.3,1); }
+  .fea.open { transform: rotate(180deg); }
+  .expand-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.38s ease, margin 0.38s ease;
+    opacity: 0; margin-top: 0;
+  }
+  .expand-body.open { max-height: 400px; opacity: 1; margin-top: 8px; }
+  .expand-content {
+    max-width: 540px; margin: 0 auto;
+    padding: 20px 24px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    text-align: left;
+  }
+  .expand-content h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; font-weight: 400;
+    color: rgba(253,250,246,0.45); letter-spacing: 0.1em;
+    margin-bottom: 10px; text-align: center;
+  }
+  .expand-content p {
+    font-size: 11px; font-weight: 300; line-height: 1.88;
+    color: rgba(253,250,246,0.25); letter-spacing: 0.02em;
+  }
+  .expand-content p + p { margin-top: 10px; }
+  .expand-content a { color: rgba(253,250,246,0.38); text-decoration: none; }
+
+</style>
+</head>
+<body>
+
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Gather Soul</a>
+  <a href="#buy" class="nav-cta">Begin — $17</a>
+</nav>
+
+<!-- MOBILE STICKY CTA (mobile only) -->
+<div class="mobile-cta-bar" id="mobileCta">
+  <div>
+    <div class="mcta-price">$17</div>
+    <div class="mcta-sub">Instant download · 2 bonuses</div>
+  </div>
+  <a href="#buy" class="mcta-btn">Begin Journey</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <p class="hero-eyebrow">Gather Soul &nbsp;·&nbsp; A Healing Journey</p>
+
+  <h1 class="hero-title">
+    Why You <em>Destroy</em><br>Everything You Love
+  </h1>
+
+  <div class="hero-divider"></div>
+
+  <p class="hero-subtitle">
+    A 21-day guided journey to understand why you push love away —
+    and finally feel safe enough to let it stay.
+  </p>
+
+  <div class="hero-cta-wrap">
+    <a href="#buy" class="btn-primary"><span>Begin Your Journey — $17</span></a>
+    <p class="hero-price-note">130 pages · Instant download · Two free bonuses</p>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section class="pain">
+  <div class="pain-inner">
+    <p class="pain-eyebrow reveal">You know this feeling</p>
+    <h2 class="pain-title reveal reveal-delay-1">
+      The love arrives. And something in you<br>starts preparing for its end.
+    </h2>
+    <div class="pain-items">
+      <div class="pain-item reveal">
+        <span class="pain-arrow">→</span>
+        <p class="pain-text">You find reasons to leave before they do, just to spare yourself the wait.</p>
+      </div>
+      <div class="pain-item reveal reveal-delay-1">
+        <span class="pain-arrow">→</span>
+        <p class="pain-text">You pick fights about nothing because closeness has always felt like danger.</p>
+      </div>
+      <div class="pain-item reveal reveal-delay-2">
+        <span class="pain-arrow">→</span>
+        <p class="pain-text">You go cold exactly when you should go warm. You push hardest when you need most.</p>
+      </div>
+      <div class="pain-item reveal reveal-delay-3">
+        <span class="pain-arrow">→</span>
+        <p class="pain-text">You sit alone after and wonder why you can never just let someone love you.</p>
+      </div>
+    </div>
+    <p class="pain-close reveal reveal-delay-4">
+      You're not broken.<br>
+      You're protecting yourself from a wound that never healed.
+    </p>
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section class="bridge">
+  <div class="bridge-inner">
+    <h2 class="bridge-quote reveal">
+      You don't destroy love because<br>
+      <strong>something is wrong with you.</strong><br>
+      You destroy it because your nervous system<br>
+      learned that love leaves.
+    </h2>
+    <p class="bridge-body reveal reveal-delay-1">
+      The patterns you carry — the pushing away, the testing, the running — were not weaknesses. They were survival. They were the only way a younger version of you knew how to stay safe when love felt dangerous.
+      <br><br>
+      But they're still running. Long after the danger passed. And they're costing you everything you want most.
+    </p>
+    <div class="bridge-line reveal reveal-delay-2"></div>
+  </div>
+</section>
+
+<!-- PRODUCT REVEAL -->
+<section class="product-reveal">
+  <div class="product-inner">
+    <div class="product-book reveal">
+      <div class="book-cover">
+        <svg class="book-wave" viewBox="0 0 400 560" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 200 Q100 150 200 200 Q300 250 400 200 L400 560 L0 560Z" fill="rgba(45,74,53,0.04)"/>
+          <path d="M0 300 Q150 260 300 320 Q350 340 400 300 L400 560 L0 560Z" fill="rgba(196,163,152,0.06)"/>
+        </svg>
+        <div class="book-title-text">Why You<br>Destroy<br>Everything<br>You Love</div>
+        <div class="book-rule"></div>
+        <div class="book-subtitle-text">A 21-Day Guided Journey to<br>Rebuild Trust, Stay Present,<br>and Finally Let Love In</div>
+        <div class="book-heart">
+          <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 82 C50 82 8 52 8 28 C8 14 18 5 30 5 C38 5 45 10 50 17 C55 10 62 5 70 5 C82 5 92 14 92 28 C92 52 50 82 50 82Z" fill="#2D4A35"/>
+            <polyline points="52,18 44,38 54,38 46,62" fill="none" stroke="#C8922A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="book-brand">Gather Soul</div>
+        <div class="book-glow"></div>
+      </div>
+    </div>
+
+    <div class="product-info">
+      <span class="product-tag reveal">A 130-Page Guided Workbook</span>
+      <h2 class="product-heading reveal reveal-delay-1">
+        This is not a book<br>you <em>read</em> and forget.
+      </h2>
+      <p class="product-desc reveal reveal-delay-2">
+        It is a daily companion that walks alongside you for 21 days — through the neuroscience of why love feels dangerous, the childhood moments that rewired you to expect loss, and the exact practices that teach your body it is finally safe to stay.
+      </p>
+      <div class="product-includes">
+        <div class="include-item reveal reveal-delay-1">
+          <div class="include-dot"></div>
+          <p class="include-text"><strong>Part One:</strong> 11 deep chapters that name the patterns with clarity and compassion</p>
+        </div>
+        <div class="include-item reveal reveal-delay-2">
+          <div class="include-dot"></div>
+          <p class="include-text"><strong>Part Two:</strong> 21-day guided practice — daily message, journal prompt, somatic exercise, mood tracker</p>
+        </div>
+        <div class="include-item reveal reveal-delay-3">
+          <div class="include-dot"></div>
+          <p class="include-text"><strong>Part Three:</strong> Healing toolkit, grounding library, and a letter to the self who survived</p>
+        </div>
+      </div>
+      <a href="https://payhip.com/buy?link=YPDkh" class="btn-primary reveal reveal-delay-4"><span>Start Reading Tonight — $17</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTERS -->
+<section class="chapters">
+  <div class="chapters-inner">
+    <div class="chapters-header">
+      <p class="chapters-eyebrow reveal">Inside the Pages</p>
+      <h2 class="chapters-title reveal reveal-delay-1">
+        Eleven chapters that will make you feel<br>seen at a depth you did not expect.
+      </h2>
+    </div>
+    <div class="chapters-grid">
+      <div class="chapter-item reveal">
+        <p class="chapter-num">Chapter One</p>
+        <p class="chapter-name">The Second You Decided Love Wasn't Safe</p>
+      </div>
+      <div class="chapter-item reveal reveal-delay-1">
+        <p class="chapter-num">Chapter Two</p>
+        <p class="chapter-name">When Warmth Locks You in a Cage You Can't See</p>
+      </div>
+      <div class="chapter-item reveal reveal-delay-1">
+        <p class="chapter-num">Chapter Three</p>
+        <p class="chapter-name">The Chains You Forge to Cage Your Heart</p>
+      </div>
+      <div class="chapter-item reveal reveal-delay-2">
+        <p class="chapter-num">Chapter Four</p>
+        <p class="chapter-name">When Your Skin Screams 'Run' at Every Caress</p>
+      </div>
+      <div class="chapter-item reveal reveal-delay-2">
+        <p class="chapter-num">Chapter Five</p>
+        <p class="chapter-name">The Small Self You Hide Behind Heavy Armor</p>
+      </div>
+      <div class="chapter-item reveal reveal-delay-3">
+        <p class="chapter-num">Chapter Six</p>
+        <p class="chapter-name">How Old Abandonment Stories Still Steer Your Love</p>
+      </div>
+      <div class="chapter-item reveal reveal-delay-3">
+        <p class="chapter-num">Chapter Seven</p>
+        <p class="chapter-name">How to Teach Your Wounded Self to Trust Again</p>
+      </div>
+      <div class="chapter-item reveal reveal-delay-4">
+        <p class="chapter-num">Chapter Eight</p>
+        <p class="chapter-name">Breathing Courage In, Letting Old Fear Out</p>
+      </div>
+      <div class="chapter-item reveal reveal-delay-4">
+        <p class="chapter-num">Chapter Nine</p>
+        <p class="chapter-name">From 'It's Not My Fault' to 'I'm Ready to Stay'</p>
+      </div>
+      <div class="chapter-item reveal">
+        <p class="chapter-num">Chapter Ten</p>
+        <p class="chapter-name">The Whispered Vow That Made You Stay</p>
+      </div>
+      <div class="chapter-item reveal reveal-delay-1" style="grid-column: span 2;">
+        <p class="chapter-num">Chapter Eleven</p>
+        <p class="chapter-name">The Morning You Told Fear to Leave</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 21 DAYS -->
+<section class="journey">
+  <div class="journey-inner">
+    <div class="journey-header">
+      <p class="journey-eyebrow reveal">The 21-Day Guided Practice</p>
+      <h2 class="journey-title reveal reveal-delay-1">Every day. A complete practice.</h2>
+      <p class="journey-subtitle reveal reveal-delay-2">You are not just reading. You are changing.</p>
+    </div>
+    <div class="days-grid">
+      <div class="day-card reveal">
+        <span class="day-icon">✦</span>
+        <p class="day-label">Daily</p>
+        <p class="day-title">A powerful opening message to frame your focus</p>
+      </div>
+      <div class="day-card reveal reveal-delay-1">
+        <span class="day-icon">◈</span>
+        <p class="day-label">Daily</p>
+        <p class="day-title">A deep journal prompt designed to surface what's buried</p>
+      </div>
+      <div class="day-card reveal reveal-delay-2">
+        <span class="day-icon">◎</span>
+        <p class="day-label">Daily</p>
+        <p class="day-title">A somatic practice to help your nervous system feel safe</p>
+      </div>
+      <div class="day-card reveal reveal-delay-3">
+        <span class="day-icon">◇</span>
+        <p class="day-label">Daily</p>
+        <p class="day-title">A mood tracker to watch yourself shift in real time</p>
+      </div>
+    </div>
+    <div class="journey-note reveal">
+      "By day 21, you will have a clearer relationship with your patterns — and more safety inside yourself to stay when love arrives."
+    </div>
+  </div>
+</section>
+
+<!-- BONUSES -->
+<section class="bonuses">
+  <div class="bonuses-inner">
+    <p class="bonuses-eyebrow reveal">Included Free</p>
+    <h2 class="bonuses-title reveal reveal-delay-1">
+      Two gifts to walk beside you<br>on every step of the journey.
+    </h2>
+    <div class="bonus-cards">
+      <div class="bonus-card reveal">
+        <span class="bonus-number">01</span>
+        <p class="bonus-tag">Bonus One</p>
+        <h3 class="bonus-title">3-Part Audio Meditation Series</h3>
+        <p class="bonus-desc">Three guided audio meditations designed to calm your nervous system, help you access your body's wisdom, and create the inner safety that healing requires.</p>
+      </div>
+      <div class="bonus-card reveal reveal-delay-1">
+        <span class="bonus-number">02</span>
+        <p class="bonus-tag">Bonus Two</p>
+        <h3 class="bonus-title">21 Daily Healing Videos</h3>
+        <p class="bonus-desc">One video for each day of your journey — gentle, grounding, and designed to support the day's practice. Healing that meets you wherever you are.</p>
+      </div>
+    </div>
+    <p class="bonuses-value reveal">
+      The workbook. The meditations. The daily videos.<br>
+      <strong>Everything for $17.</strong><br>
+      Less than a single therapy co-pay.
+    </p>
+  </div>
+</section>
+
+<!-- PRICING / BUY -->
+<section class="pricing" id="buy">
+  <div class="pricing-inner">
+    <p class="pricing-eyebrow reveal">Your Investment</p>
+    <h2 class="pricing-title reveal reveal-delay-1">
+      You've spent years carrying this.<br>
+      Spend 21 days <em>setting it down.</em>
+    </h2>
+
+    <div class="price-compare reveal reveal-delay-2">
+      <div class="price-item">
+        <p class="price-label">One therapy session</p>
+        <p class="price-amount crossed">$150+</p>
+        <p class="price-sub">per hour</p>
+      </div>
+      <span class="price-vs">vs</span>
+      <div class="price-item">
+        <p class="price-label">21 days of guided healing</p>
+        <p class="price-amount main">$17</p>
+        <p class="price-sub">one time · instant access</p>
+      </div>
+    </div>
+
+    <div class="pricing-includes reveal reveal-delay-2">
+      <div class="pricing-include">
+        <span class="pricing-check">✓</span>
+        130-page guided workbook (PDF)
+      </div>
+      <div class="pricing-include">
+        <span class="pricing-check">✓</span>
+        3-Part audio meditation series
+      </div>
+      <div class="pricing-include">
+        <span class="pricing-check">✓</span>
+        21 daily healing videos
+      </div>
+      <div class="pricing-include">
+        <span class="pricing-check">✓</span>
+        Instant delivery to your inbox
+      </div>
+      <div class="pricing-include">
+        <span class="pricing-check">✓</span>
+        Lifetime access
+      </div>
+    </div>
+
+    <!-- REPLACE THIS HREF WITH YOUR PAYMENT LINK -->
+    <a href="https://payhip.com/buy?link=YPDkh" class="btn-final reveal reveal-delay-3">
+      <span>Begin Your Journey — $17</span>
+    </a>
+
+    <p class="pricing-note reveal reveal-delay-4">
+      Secure payment · Instant download · Digital product<br>
+      Questions? Contact Us
+    </p>
+  </div>
+</section>
+
+<!-- FINAL QUOTE -->
+<section class="final-quote">
+  <div class="final-quote-inner">
+    <span class="quote-mark reveal">"</span>
+    <p class="quote-text reveal reveal-delay-1">
+      You're not here to rush to the end —<br>
+      you're here to meet yourself along the way.
+    </p>
+    <div class="quote-rule reveal reveal-delay-2"></div>
+    <p class="quote-attr reveal reveal-delay-2">Gather Soul</p>
+    <!-- REPLACE THIS HREF WITH YOUR PAYMENT LINK -->
+    <a href="https://payhip.com/buy?link=YPDkh" class="quote-final-cta reveal reveal-delay-3">Your healing starts here</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Gather Soul</span>
+  <p class="footer-note">
+    © 2025 Gather Soul · All rights reserved<br>
+    <a href="mailto:thegathersoul@gmail.com">thegathersoul@gmail.com</a>
+    &nbsp;·&nbsp;
+    <a href="https://instagram.com/gather.soul" target="_blank">@gather.soul</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:thegathersoul@gmail.com">Contact Us</a>
+  </p>
+
+  <div class="footer-divider"></div>
+
+  <!-- Expandable legal links -->
+  <div class="footer-expand-row">
+
+    <!-- Refund Policy -->
+    <button class="footer-expand-btn" id="refundBtn" aria-expanded="false">
+      <span>Refund Policy</span>
+      <span class="fea" id="refundArrow">↓</span>
+    </button>
+    <div class="expand-body" id="refundBody">
+      <div class="expand-content">
+        <h4>Refund &amp; Delivery Policy</h4>
+        <p>Due to the instant digital delivery of this product, all sales are final. Once your download link has been issued, refunds cannot be processed. If you experience any technical issues accessing your files, please contact us at <a href="mailto:thegathersoul@gmail.com">thegathersoul@gmail.com</a> and we will resolve it promptly. We are committed to ensuring you receive everything you purchased.</p>
+      </div>
+    </div>
+
+    <!-- Privacy Policy -->
+    <button class="footer-expand-btn" id="privacyBtn" aria-expanded="false">
+      <span>Privacy Policy</span>
+      <span class="fea" id="privacyArrow">↓</span>
+    </button>
+    <div class="expand-body" id="privacyBody">
+      <div class="expand-content">
+        <h4>Privacy Policy</h4>
+        <p>Gather Soul is committed to protecting your privacy. We collect only the information necessary to process your order — your name, email address, and payment details. Payment information is processed securely through PayPal and is never stored on our systems.</p>
+        <p>Your email address may be used to deliver your purchased files and to provide order-related communications. We do not sell, rent, or share your personal information with third parties for marketing purposes. You may contact us at any time at <a href="mailto:thegathersoul@gmail.com">thegathersoul@gmail.com</a> to request removal of your data.</p>
+        <p>This site uses basic analytics to understand visitor behaviour. No sensitive personal data is collected through analytics. By completing a purchase, you agree to the terms of this Privacy Policy.</p>
+      </div>
+    </div>
+
+    <!-- Terms & Conditions -->
+    <button class="footer-expand-btn" id="termsBtn" aria-expanded="false">
+      <span>Terms &amp; Conditions</span>
+      <span class="fea" id="termsArrow">↓</span>
+    </button>
+    <div class="expand-body" id="termsBody">
+      <div class="expand-content">
+        <h4>Terms &amp; Conditions</h4>
+        <p>By purchasing from Gather Soul, you agree to these Terms. All digital products are for personal use only. You may not reproduce, redistribute, resell, or share the content in any form without prior written permission from Gather Soul.</p>
+        <p>The content in this workbook is for educational and personal growth purposes only. It does not constitute medical, psychological, or therapeutic advice and is not a substitute for professional mental health support. Gather Soul accepts no liability for any outcomes arising from the use of this material.</p>
+        <p>All purchases are subject to our Refund Policy. We reserve the right to update these Terms at any time. Continued use of our products implies acceptance of the current Terms. For any questions, contact <a href="mailto:thegathersoul@gmail.com">thegathersoul@gmail.com</a>.</p>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+/* ── NAV SCROLL ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ── SCROLL REVEAL ── */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+/* ── SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+/* ── MOBILE STICKY CTA ── */
+const mobileCta = document.getElementById('mobileCta');
+if (mobileCta && window.innerWidth <= 768) {
+  const heroSection = document.querySelector('.hero');
+  const showAfter = heroSection ? heroSection.offsetHeight * 0.55 : 400;
+  window.addEventListener('scroll', () => {
+    mobileCta.classList.toggle('visible', window.scrollY > showAfter);
+  }, { passive: true });
+}
+
+/* ── EXPANDABLE TOGGLES ── */
+function makeToggle(btnId, bodyId, arrowId) {
+  const btn = document.getElementById(btnId);
+  const body = document.getElementById(bodyId);
+  const arrow = document.getElementById(arrowId);
+  if (!btn || !body || !arrow) return;
+  btn.addEventListener('click', () => {
+    const isOpen = body.classList.toggle('open');
+    arrow.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', isOpen);
+  });
+}
+makeToggle('refundBtn', 'refundBody', 'refundArrow');
+makeToggle('privacyBtn', 'privacyBody', 'privacyArrow');
+makeToggle('termsBtn', 'termsBody', 'termsArrow');
+
+/* ── HERO PARALLAX (desktop only, passive) ── */
+if (window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const heroBg = document.querySelector('.hero-bg');
+  window.addEventListener('scroll', () => {
+    if (heroBg) heroBg.style.transform = `translateY(${window.scrollY * 0.28}px)`;
+  }, { passive: true });
+}
+</script>
+</body>
+</html>
